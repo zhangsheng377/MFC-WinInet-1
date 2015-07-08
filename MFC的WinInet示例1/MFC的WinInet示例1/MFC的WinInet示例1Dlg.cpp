@@ -7,6 +7,7 @@
 #include "MFC的WinInet示例1Dlg.h"
 #include "afxdialogex.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -18,6 +19,8 @@
 
 CMFC的WinInet示例1Dlg::CMFC的WinInet示例1Dlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CMFC的WinInet示例1Dlg::IDD, pParent)
+	, m_Url(_T(""))
+	, m_EditResult(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -25,11 +28,16 @@ CMFC的WinInet示例1Dlg::CMFC的WinInet示例1Dlg(CWnd* pParent /*=NULL*/)
 void CMFC的WinInet示例1Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT_URL, m_Url);
+	DDX_Text(pDX, IDC_EDIT_RESULT, m_EditResult);
 }
 
 BEGIN_MESSAGE_MAP(CMFC的WinInet示例1Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON_HTTP, &CMFC的WinInet示例1Dlg::OnBnClickedButtonHttp)
+	ON_BN_CLICKED(IDC_BUTTON_FTP, &CMFC的WinInet示例1Dlg::OnBnClickedButtonFtp)
+	ON_BN_CLICKED(IDC_BUTTON_GOPHER, &CMFC的WinInet示例1Dlg::OnBnClickedButtonGopher)
 END_MESSAGE_MAP()
 
 
@@ -85,3 +93,33 @@ HCURSOR CMFC的WinInet示例1Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMFC的WinInet示例1Dlg::OnBnClickedButtonHttp()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	m_EditResult = L"";
+	m_EditResult += m_WinInetClass.ConnectHttp(m_Url);
+	UpdateData(FALSE);
+}
+
+
+void CMFC的WinInet示例1Dlg::OnBnClickedButtonFtp()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	m_EditResult = L"";
+	m_EditResult += m_WinInetClass.ConnectFtp(m_Url);
+	UpdateData(FALSE);
+}
+
+
+void CMFC的WinInet示例1Dlg::OnBnClickedButtonGopher()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+	m_EditResult = L"";
+	m_EditResult += m_WinInetClass.ConnectGopher(m_Url);
+	UpdateData(FALSE);
+}

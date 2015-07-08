@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "MyWinInetClass.h"
 
 // CMFC的WinInet示例1Dlg 对话框
 class CMFC的WinInet示例1Dlg : public CDialogEx
@@ -28,4 +29,11 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	CString m_Url;
+	MyWinInetClass m_WinInetClass;
+	afx_msg void OnBnClickedButtonHttp();
+	CString m_EditResult;
+	afx_msg void OnBnClickedButtonFtp();
+	afx_msg void OnBnClickedButtonGopher();
 };
